@@ -1,6 +1,4 @@
-# cresta_sales
-
-# Installing an Odoo Module
+# Installing Cresta Sales Module
 
 Follow these steps to install and configure a custom module in your Odoo instance.
 
