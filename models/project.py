@@ -4,6 +4,7 @@ class Project(models.Model):
     _name = 'project.management'
     _description = 'Project Management'
 
+    # Fields
     name = fields.Char(string="Project Name", required=True, default="New")
     quotation_id = fields.Many2one('customer.quotation', string="Quotation")
     invoice_id = fields.Many2one('simple.invoice', string="Invoice")
@@ -23,6 +24,7 @@ class Project(models.Model):
     def _group_expand_states(self, states, domain, order):
         return [key for key, _ in self._fields['state'].selection]
 
+   # Functions
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':

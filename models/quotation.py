@@ -3,7 +3,8 @@ from odoo import models, fields, api
 class Quotation(models.Model):
     _name = 'customer.quotation'
     _description = 'Customer Quotation'
-
+    
+    #Fields
     name = fields.Char(string="Quotation Reference", required=True, default="New")
     lead_id = fields.Many2one('lead.management', string="Lead", ondelete='set null')
     requirements = fields.Html(string='Requeriments')
@@ -28,6 +29,7 @@ class Quotation(models.Model):
     def _group_expand_states(self, states, domain, order):
         return [key for key, _ in self._fields['state'].selection]
 
+    # Functions
     @api.depends('quotation_lines.subtotal')
     def _compute_total_amount(self):
         for record in self:
@@ -79,12 +81,14 @@ class QuotationLine(models.Model):
     _name = 'customer.quotation.line'
     _description = 'Quotation Line'
 
+    # Fields
     quotation_id = fields.Many2one('customer.quotation', string="Quotation", required=True, ondelete='cascade')
     project_id = fields.Many2one('project.scope', string="Project", required=True)
     quantity = fields.Float(string="Quantity", required=True, default=1.0)
     unit_price = fields.Float(string="Unit Price", required=True)
     subtotal = fields.Float(string="Subtotal", compute="_compute_subtotal", store=True)
 
+    # Functions
     @api.depends('quantity', 'unit_price')
     def _compute_subtotal(self):
         for line in self:
