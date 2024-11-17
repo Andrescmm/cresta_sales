@@ -26,13 +26,15 @@
                     <!-- Action Buttons -->
                     <div class="oe_button_box" name="button_box">
                         <button name="action_send" string="Send Quotation" 
-                                type="object" class="btn" icon="fa-send" invisible="state in ('signed')"/>
+                                type="object" class="btn" icon="fa-send" invisible="state in ('signed', 'in_project')"/>
                         <button name="action_mark_accepted" string="Mark Accepted" 
-                                type="object" class="btn" icon="fa-check" invisible="state in ('draft', 'accepted')"/>
-                       <button name="action_send_contract" string="Send Contract" 
-                                type="object" class="btn" icon="fa-id-card" invisible="state in ('draft', 'sent', 'rejected','signed')"/>      
+                                type="object" class="btn" icon="fa-check" invisible="state in ('draft', 'accepted', 'in_project')"/>
+                        <button name="action_send_contract" string="Send Contract" 
+                                type="object" class="btn" icon="fa-id-card" invisible="state in ('draft', 'sent', 'rejected','signed', 'in_project')"/>
+                        <button name="action_create_project" string="Creted Project" 
+                                type="object" class="btn" icon="fa-diamond" invisible="state != 'signed'"/>               
                         <button name="action_mark_rejected" string="Mark Rejected" 
-                                type="object" class="btn" icon="fa-times" invisible="state == 'draft'"/>
+                                type="object" class="btn" icon="fa-times" invisible="state in ('draft', 'in_project')"/>
                     </div>
                     <group>
                         <field name="name"/>

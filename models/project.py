@@ -5,8 +5,10 @@ class Project(models.Model):
     _description = 'Project Management'
 
     name = fields.Char(string="Project Name", required=True, default="New")
-    # invoice_id = fields.Many2one('account.move', string="Invoice", domain=[('move_type', '=', 'out_invoice')])
+    quotation_id = fields.Many2one('customer.quotation', string="Quotation")
+    invoice_id = fields.Many2one('simple.invoice', string="Invoice")
     project_manager = fields.Many2one('res.users', string="Project Manager", default=lambda self: self.env.user)
+    client = fields.Char(string="Client")
     start_date = fields.Date(string="Start Date")
     end_date = fields.Date(string="End Date")
     total_amount = fields.Float(string="Invoice Total", store=True)
@@ -14,22 +16,52 @@ class Project(models.Model):
         ('draft', 'Draft'),
         ('in_progress', 'In Progress'),
         ('completed', 'Completed'),
-    ], string="Status", default='draft', required=True)
+    ], string="Status", default='draft', group_expand='_group_expand_states', track_visibility='always', required=True)
     task_ids = fields.One2many('project.task', 'project_id', string="Tasks")
+    
+    # Group expand for status
+    def _group_expand_states(self, states, domain, order):
+        return [key for key, _ in self._fields['state'].selection]
 
     @api.model
     def create(self, vals):
         if vals.get('name', 'New') == 'New':
             vals['name'] = self.env['ir.sequence'].next_by_code('project.management') or 'New'
         return super(Project, self).create(vals)
-
+    
     def action_start_project(self):
         self.write({'state': 'in_progress'})
 
     def action_complete_project(self):
-        self.write({'state': 'completed'})
-
-
+        self.write({'state': 'completed'})    
+        
+    def action_make_payment(self):
+        self.write({'state': 'in_progress'})
+        invoice = self.env['simple.invoice'].create({
+            'customer_name': self.client,
+            'due_date': self.end_date,
+            'total_amount': self.total_amount,
+            'state': 'draft',
+            'project_id': self.id,
+        })
+        self.env['simple.invoice.line'].create({
+            'invoice_id': invoice.id,
+            'description': "Project Payment",
+            'quantity': 1,
+            'unit_price': self.total_amount,
+        })
+        self.invoice_id = invoice.id
+        
+        return {
+            'name': 'Invoice',
+            'view_mode': 'form',
+            'res_model': 'simple.invoice',
+            'res_id': invoice.id,
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+        }
+        
+        
 class Task(models.Model):
     _name = 'project.task'
     _description = 'Task'

@@ -16,6 +16,7 @@ class Quotation(models.Model):
         ('sent', 'Sent'),
         ('accepted', 'Accepted'),
         ('signed', 'Signed'),
+        ('in_project', 'In Project'),
         ('rejected', 'Rejected'),
     ], string="Status", default='draft',  group_expand='_group_expand_states', track_visibility='always' , required=True)
     date_start = fields.Date(string="Start Date")
@@ -52,17 +53,27 @@ class Quotation(models.Model):
     def action_mark_rejected(self):
         self.write({'state': 'rejected'})
     
-    def action_kick_off(self):
-        self.write({'state': 'draft'})
+    def action_create_project(self):
+        self.write({'state': 'in_project'})
+        project = self.env['project.management'].create({
+            'quotation_id': self.id,
+            'client': self.lead_id.name,
+            'project_manager': self.asign_to.id,
+            'start_date': self.date_start,
+            'end_date': self.date_end,
+            'total_amount': self.total_amount,
+            'state': 'draft',
+        })
+        
         return {
-            'type': 'ir.actions.act_window',
-            'name': 'Project Scope',
-            'res_model': 'project.scope',
+            'name': 'Project',
             'view_mode': 'form',
-            'target': 'new',
+            'res_model': 'project.management',
+            'type': 'ir.actions.act_window',
+            'res_id': project.id,
+            'target': 'current',
         }
         
-    
     
 class QuotationLine(models.Model):
     _name = 'customer.quotation.line'

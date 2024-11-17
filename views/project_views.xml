@@ -4,19 +4,30 @@
         <field name="model">project.management</field>
         <field name="arch" type="xml">
             <form string="Project">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
                 <sheet>
-                    <group>
-                        <field name="name"/>
-                        <!-- <field name="invoice_id"/> -->
-                        <field name="project_manager"/>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
+                    <!-- Action Buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_make_payment" string="Make Payment" 
+                                type="object" class="btn" icon="fa-unlock-alt" invisible="state in ('in_progress', 'completed')"/>
+                        <button name="action_complete_project" string="Complete Project" 
+                                type="object" class="btn" icon="fa-check" invisible="state == 'draft'"/>        
+                    </div>
+                    <group >
+                        <field name="name" readonly="state == 'draft'"/>
+                        <field name="quotation_id" readonly="state == 'draft'"/>
+                        <field name="client" readonly="state == 'draft'"/>
+                        <field name="invoice_id" readonly="state == 'draft'"/>
+                        <field name="project_manager" readonly="state == 'draft'"/>
+                        <field name="start_date" readonly="state == 'draft'"/>
+                        <field name="end_date" readonly="state == 'draft'"/>
                         <field name="total_amount" readonly="1"/>
-                        <field name="state"/>
                     </group>
                     <notebook>
                         <page string="Tasks">
-                            <field name="task_ids">
+                            <field name="task_ids" readonly="state == 'draft'">
                                 <tree>
                                     <field name="name"/>
                                     <field name="assigned_to"/>
@@ -39,11 +50,52 @@
         </field>
     </record>
 
+
+    <!-- Kanban View for Project Management -->
+    <record id="view_project_management_kanban" model="ir.ui.view">
+        <field name="name">project.management.kanban</field>
+        <field name="model">project.management</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_card">
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_card">
+                            <!-- Project Name -->
+                            <div class="o_kanban_card_header">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                            </div>
+                            <!-- State and Progress -->
+                            <div class="o_kanban_details">
+                                <div>
+                                    <span>Status:</span>
+                                    <field name="state" widget="badge"/>
+                                </div>
+                            </div>
+                            <!-- Dates -->
+                            <div>
+                                <small>Start Date: <field name="start_date"/></small>
+                                <small>End Date: <field name="end_date"/></small>
+                            </div>
+                            <!-- Total Amount -->
+                            <div>
+                                <strong>To# Group expand for status
+                                    def _group_expand_states(self, states, domain, order):
+                                        return [key for key, _ in self._fields['state'].selection]tal: </strong>$<field name="total_amount"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record id='action_project_management' model='ir.actions.act_window'>
         <field name='name'>Projects</field>
         <field name='type'>ir.actions.act_window</field>
         <field name='res_model'>project.management</field>
-        <field name='view_mode'>tree,form</field>
+        <field name='view_mode'>tree,kanban,form</field>
     </record>
 
 

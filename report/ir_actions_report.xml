@@ -12,13 +12,24 @@
    </record>
 
    <record id="action_contract_quotation_report" model="ir.actions.report">
-    <field name="name">Contract Report</field>
-    <field name="model">customer.quotation</field>
-    <field name="report_type">qweb-pdf</field>
-    <field name="report_name">cresta_sales.report_contract_document</field>
-    <field name="report_file">cresta_sales.report_contract_document</field>
-    <field name="print_report_name">'Contract - %s' % (object.name)</field>
-    <field name="binding_model_id" ref="cresta_sales.model_customer_quotation"/>
-    <field name="binding_type">report</field>
-</record>
+        <field name="name">Contract Report</field>
+        <field name="model">customer.quotation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cresta_sales.report_contract_document</field>
+        <field name="report_file">cresta_sales.report_contract_document</field>
+        <field name="print_report_name">'Contract - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="cresta_sales.model_customer_quotation"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <record id="action_invoice_report" model="ir.actions.report">
+        <field name="name">Invoice Report</field>
+        <field name="model">simple.invoice</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">cresta_sales.report_simple_invoice</field>
+        <field name="report_file">cresta_sales.report_simple_invoice</field>
+        <field name="print_report_name">'Invoice - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="cresta_sales.model_simple_invoice"/>
+        <field name="binding_type">report</field>
+    </record>
 </odoo>

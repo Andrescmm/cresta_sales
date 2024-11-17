@@ -24,6 +24,7 @@
         'report/quotation_report.xml',
         'report/contract_report.xml',
         'report/ir_actions_report.xml',
+        'report/invoice_report.xml',
         'views/menu_items.xml',
         'views/lead_views.xml',
         'views/campaign_views.xml',

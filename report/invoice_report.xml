@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_simple_invoice">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.external_layout">
+                    <div class="invoice-report">
+                        <!-- Header -->
+                        <h1 style="text-align: center;">Invoice</h1>
+                        <p style="text-align: center;">Invoice Number: <t t-esc="o.name"/></p>
+                        
+                        <!-- Invoice and Customer Details -->
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Customer Name</th>
+                                <td><t t-esc="o.customer_name"/></td>
+                                <th>Invoice Date</th>
+                                <td><t t-esc="o.invoice_date"/></td>
+                            </tr>
+                            <tr>
+                                <th>Due Date</th>
+                                <td><t t-esc="o.due_date"/></td>
+                                <th>Status</th>
+                                <td><t t-esc="dict(o._fields['state'].selection).get(o.state)"/></td>
+                            </tr>
+                            <tr>
+                                <th>Project</th>
+                                <td colspan="3"><t t-esc="o.project_id.name or 'N/A'"/></td>
+                            </tr>
+                        </table>
+                        
+                        <!-- Invoice Lines -->
+                        <h3>Invoice Details</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Quantity</th>
+                                    <th>Unit Price</th>
+                                    <th>Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.line_ids" t-as="line">
+                                    <td><t t-esc="line.description"/></td>
+                                    <td><t t-esc="line.quantity"/></td>
+                                    <td>$<t t-esc="line.unit_price"/></td>
+                                    <td>$<t t-esc="line.subtotal"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <!-- Total Amount -->
+                        <h3 style="text-align: right;">Total Amount: $<t t-esc="o.total_amount"/></h3>
+                        
+                        <!-- Footer -->
+                        <div class="footer">
+                            <p>Thank you for your business!</p>
+                            <p>If you have any questions, please contact us at <i>(your company contact information)</i>.</p>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

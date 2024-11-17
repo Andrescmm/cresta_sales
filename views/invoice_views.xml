@@ -5,13 +5,18 @@
         <field name="arch" type="xml">
             <form string="Invoice">
                 <sheet>
+                    <header>
+                        <field name="state" widget="statusbar"/>
+                        <button name="action_send" string="Sent" type="object" class="btn-primary" icon="fa-send" invisible="state != 'draft'"/>
+                        <button name="action_mark_paid" string="Paid" type="object" icon="fa-check" invisible="state != 'sent'"/>
+                    </header>
                     <group>
-                        <field name="name"/>
+                        <field name="name" readonly="1"/>
                         <field name="customer_name"/>
                         <field name="invoice_date"/>
                         <field name="due_date"/>
                         <field name="total_amount" readonly="1"/>
-                        <field name="state"/>
+                        <field name="project_id"/>
                     </group>
                     <notebook>
                         <page string="Invoice Lines">
