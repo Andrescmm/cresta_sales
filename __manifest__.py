@@ -3,11 +3,10 @@
     'name': "Cresta Sales",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        Module for sales process. That can facilitate the sales process in a company.""",
 
     'description': """
-        Long description of module's purpose
+        Module for sales process. That can facilitate the sales process in a company.
     """,
 
     'author': "Andres Cusirramos",
@@ -25,7 +24,6 @@
         'report/contract_report.xml',
         'report/ir_actions_report.xml',
         'report/invoice_report.xml',
-        'views/menu_items.xml',
         'views/lead_views.xml',
         'views/campaign_views.xml',
         'views/project_views.xml',
@@ -33,7 +31,8 @@
         'views/project_scope_views.xml',
         'views/communication_views.xml',
         'views/quotation_views.xml',
-        'views/invoice_views.xml'
+        'views/invoice_views.xml',
+        'views/menu_items.xml',
     ],
 
     'demo': [

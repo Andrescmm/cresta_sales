@@ -13,7 +13,7 @@
                         <button name="action_make_payment" string="Make Payment" 
                                 type="object" class="btn" icon="fa-unlock-alt" invisible="state in ('in_progress', 'completed')"/>
                         <button name="action_complete_project" string="Complete Project" 
-                                type="object" class="btn" icon="fa-check" invisible="state == 'draft'"/>        
+                    type="object" class="btn" icon="fa-check" invisible="state == 'draft'"/>        
                     </div>
                     <group >
                         <field name="name" readonly="state == 'draft'"/>
@@ -80,9 +80,7 @@
                             </div>
                             <!-- Total Amount -->
                             <div>
-                                <strong>To# Group expand for status
-                                    def _group_expand_states(self, states, domain, order):
-                                        return [key for key, _ in self._fields['state'].selection]tal: </strong>$<field name="total_amount"/>
+                                <strong>Total </strong>$<field name="total_amount"/>
                             </div>
                         </div>
                     </t>

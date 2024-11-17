@@ -1,6 +1,6 @@
 # Installing Cresta Sales Module
 
-Follow these steps to install and configure a custom module in your Odoo instance.
+Follow these steps to install and configure a cresta sales module in your Odoo instance.
 
 ---
 
@@ -13,10 +13,10 @@ Before installing the module, ensure you have the following prerequisites:
 ---
 
 ## 2. Copy the Module
-1. Locate the module folder, typically named something like `project_management`, `custom_module`, etc.
+1. Locate the module folder, typically `cresta_sales`.
 2. Copy the module folder to the Odoo `addons` directory. This directory is usually located at:
    - **Linux**: `/opt/odoo/addons` (default installation)
-   - **Windows**: `C:\Program Files (x86)\Odoo 15\server\addons`
+   - **Windows**: `C:\Program Files (x86)\Odoo 17\server\addons`
    - **Custom Path**: As defined in your `odoo.conf` file under the `addons_path`.
 
 ---
@@ -38,7 +38,7 @@ Before installing the module, ensure you have the following prerequisites:
 ---
 
 ## 4. Install the Module
-1. Search for the module by its name (e.g., "Project Management") in the Apps menu.
+1. Search for the module by its name ("cresta_sales") in the Apps menu.
 2. If the module is not visible:
    - Ensure the **"Apps" filter** is cleared or set to **"All"**.
    - Verify the module folder is in the correct `addons` path.
