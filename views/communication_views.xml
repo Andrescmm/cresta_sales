@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id='view_project_scope_tree' model='ir.ui.view'>
+        <field name='name'>lead.communication.tree</field>
+        <field name='model'>lead.communication</field>
+        <field name='arch' type='xml'>
+            <tree>
+                <field name='name'/>
+                <field name='meeting_date'/> 
+                <field name='meeting_link' widget="html" /> 
+            </tree>
+        </field>
+    </record>
+
+    <record id='action_lead_communication' model='ir.actions.act_window'>
+        <field name='name'>Communication</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name='res_model'>lead.communication</field>
+        <field name='view_mode'>tree,form</field>
+    </record>
+
+</odoo>

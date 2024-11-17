@@ -1,0 +1,61 @@
+<odoo>
+    <record id="view_project_task_form" model="ir.ui.view">
+        <field name="name">project.task.form</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <form string="Task">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="project_id"/>
+                        <field name="assigned_to"/>
+                        <field name="deadline"/>
+                        <field name="description"/>
+                        <field name="state"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_project_task_kanban" model="ir.ui.view">
+        <field name="name">project.task.kanban</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <kanban string="Task Kanban View">
+                <field name="state"/>
+                <templates>
+                    <t t="kanban">
+                        <div class="o_kanban_record">
+                            <div class="o_kanban_card">
+                                <strong>
+                                    <field name="name"/>
+                                </strong>
+                                <div>
+                                    <span><strong>Assigned to:</strong> <field name="assigned_to"/></span>
+                                </div>
+                                <div>
+                                    <span><strong>Deadline:</strong> <field name="deadline"/></span>
+                                </div>
+                                <div>
+                                    <span><strong>Project:</strong> <field name="project_id"/></span>
+                                </div>
+                                <div>
+                                    <field name="description"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    
+    <record id='action_tasks' model='ir.actions.act_window'>
+        <field name='name'>tasks</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name='res_model'>project.task</field>
+        <field name='view_mode'>kanban,form</field>
+    </record>
+
+</odoo>

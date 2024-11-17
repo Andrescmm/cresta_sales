@@ -1,0 +1,114 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_customer_quotation_tree" model="ir.ui.view">
+        <field name="name">customer.quotation.tree</field>
+        <field name="model">customer.quotation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="quotation_date"/>
+                <field name="total_amount"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_customer_quotation_form" model="ir.ui.view">
+        <field name="name">customer.quotation.form</field>
+        <field name="model">customer.quotation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <!-- Action Buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_send" string="Send Quotation" 
+                                type="object" class="btn" icon="fa-send" invisible="state in ('signed')"/>
+                        <button name="action_mark_accepted" string="Mark Accepted" 
+                                type="object" class="btn" icon="fa-check" invisible="state in ('draft', 'accepted')"/>
+                       <button name="action_send_contract" string="Send Contract" 
+                                type="object" class="btn" icon="fa-id-card" invisible="state in ('draft', 'sent', 'rejected','signed')"/>      
+                        <button name="action_mark_rejected" string="Mark Rejected" 
+                                type="object" class="btn" icon="fa-times" invisible="state == 'draft'"/>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="lead_id"/>
+                        <field name="quotation_date"/>
+                        <field name="asign_to"/>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                    <group>
+                        <field name="proposal_details"/>
+                    </group>
+                    <notebook>
+                        <page string="Quotation Lines">
+                            <field name="quotation_lines">
+                                <tree editable="bottom">
+                                    <field name="project_id"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
+                                    <field name="subtotal"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Requirements">
+                            <field name="requirements"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Kanban View -->
+    <record id="view_customer_quotation_kanban" model="ir.ui.view">
+        <field name="name">customer.quotation.kanban</field>
+        <field name="model">customer.quotation</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" group_expand="1">
+                <field name="name"/>
+                <field name="quotation_date"/>
+                <field name="total_amount"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div>
+                                <strong><field name="name"/></strong>
+                            </div>
+                            <div>
+                                <span>Lead: <field name="lead_id"/></span>
+                            </div>
+                            <div>
+                                <span>Quotation Date: <field name="quotation_date"/></span>
+                            </div>
+                            <div>
+                                <span>Status: </span>
+                                <span class="badge badge-primary"><field name="state"/></span>
+                            </div>
+                            <div>
+                                <span class="text-info">Total: <field name="total_amount"/></span>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="o_kanban_record_bottom">
+                                    <field name="asign_to" widget="many2one_avatar_user"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_customer_quotation" model="ir.actions.act_window">
+        <field name="name">Customer Quotations</field>
+        <field name="res_model">customer.quotation</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+</odoo>

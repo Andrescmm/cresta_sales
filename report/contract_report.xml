@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <template id="report_contract_document">
+       <t t-call="web.html_container">
+           <t t-foreach="docs" t-as="o">
+               <t t-call="web.external_layout">
+                   <div class="contract-report">
+                       <h1>Service Agreement Contract</h1>
+                       
+                       <p>This agreement is made on <t t-esc="o.quotation_date"/> between:</p>
+                       <ul>
+                           <li><strong>Lead (Client):</strong> <t t-esc="o.lead_id.name or ''"/></li>
+                           <li><strong>Responsible Party (Service Provider):</strong> <t t-esc="o.asign_to.name or ''"/></li>
+                       </ul>
+                       
+                       <h3>Contract Summary</h3>
+                       <table class="table table-bordered">
+                           <tr>
+                               <th>Contract Reference</th>
+                               <td><t t-esc="o.name"/></td>
+                           </tr>
+                           <tr>
+                               <th>Contract Date</th>
+                               <td><t t-esc="o.quotation_date"/></td>
+                           </tr>
+                           <tr>
+                               <th>Total Amount</th>
+                               <td>$<t t-esc="o.total_amount"/></td>
+                           </tr>
+                       </table>
+                       
+                       <h3>Responsibilities</h3>
+                       <p><strong>Client Responsibilities:</strong></p>
+                       <p>The client, identified as <t t-esc="o.lead_id.name or ''"/>, agrees to provide all necessary information, resources, and approvals to ensure the successful completion of the services as outlined in this agreement.</p>
+                       
+                       <p><strong>Service Provider Responsibilities:</strong></p>
+                       <p>The responsible party, identified as <t t-esc="o.asign_to.name or ''"/>, agrees to deliver the services as specified below within the agreed time frame from <t t-esc="o.date_start"/> to <t t-esc="o.date_end"/>:</p>
+                       <p>1. <strong>Service Delivery:</strong> The service provider shall deliver the agreed-upon services in a timely and professional manner, adhering to the standards outlined in the service agreement. This includes but is not limited to <i>(describe specific services here)</i>.</p>
+                       <p>2. <strong>Quality Assurance:</strong> The service provider is responsible for ensuring that the quality of the services provided meets the industry standards and the expectations outlined in the contract. Any necessary revisions or improvements should be made promptly if issues are identified.</p>
+                       <p>3. <strong>Communication:</strong> The service provider shall maintain clear and consistent communication with the client, updating them on the progress of the services, addressing any concerns, and providing necessary reports or documentation as requested.</p>
+                       <p>4. <strong>Compliance:</strong> The service provider agrees to comply with all relevant local, state, and federal regulations, including those related to health, safety, and privacy laws applicable to the services being delivered.</p>
+                       <p>5. <strong>Work Hours:</strong> The service provider shall deliver the services during the hours agreed upon, unless otherwise specified in writing. Any necessary adjustments to timelines or hours should be communicated in advance.</p>
+                       <p>6. <strong>Support and Maintenance:</strong> The service provider shall offer ongoing support and maintenance, as required by the agreement, to ensure that the services continue to operate effectively. This may include troubleshooting, updates, or additional services as outlined.</p>
+                       <p>7. <strong>Performance Metrics:</strong> The service provider will track and report on key performance indicators (KPIs) related to service delivery, ensuring that the services meet the quality and timeliness standards set forth in the agreement.</p>
+                       <p>8. <strong>Subcontracting:</strong> If the service provider needs to subcontract any portion of the services, prior written approval from the client is required. The service provider remains responsible for the performance of any subcontracted work.</p>
+                       <p>By agreeing to these responsibilities, the service provider commits to providing a high level of service and ensuring that the client’s needs are met to the fullest extent possible.</p>
+
+
+                       <ul>
+                           <li><strong>Requirements:</strong> <t t-esc="o.requirements"/></li>
+                           <li><strong>Proposal Details:</strong> <t t-esc="o.proposal_details"/></li>
+                       </ul>
+                       
+                       <h3>Terms and Conditions</h3>
+                       <p>1. The total payment for the services shall be <t t-esc="o.total_amount"/> and is due within 30 days of invoice issuance.</p>
+                       <p>2. Any amendments to the requirements or proposal details must be agreed upon in writing by both parties.</p>
+                       <p>3. The service provider shall not be held liable for delays caused by the client’s failure to meet their responsibilities.</p>
+                       
+                       <br></br>
+                       <h3>Signatures</h3>
+                       <table class="table table-bordered">
+                           <thead>
+                               <tr>
+                                   <th>Party</th>
+                                   <th>Name</th>
+                                   <th>Signature</th>
+                                   <th>Date</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <tr>
+                                   <td>Client</td>
+                                   <td><t t-esc="o.lead_id.name or ''"/></td>
+                                   <td>_________________________</td>
+                                   <td><t t-esc="o.quotation_date"/></td>
+                               </tr>
+                               <tr>
+                                   <td>Service Provider</td>
+                                   <td><t t-esc="o.asign_to.name or ''"/></td>
+                                   <td>_________________________</td>
+                                   <td><t t-esc="o.quotation_date"/></td>
+                               </tr>
+                           </tbody>
+                       </table>
+                       
+                       <p>By signing this contract, both parties confirm their agreement to the terms outlined above.</p>
+                   </div>
+               </t>
+           </t>
+       </t>
+   </template>
+</odoo>

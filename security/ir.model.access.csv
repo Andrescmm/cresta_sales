@@ -1,2 +1,13 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_my_module_my_module,my_module.my_module,model_my_module_my_module,,1,0,0,0
+access_lead_management,access_lead_management,model_lead_management,base.group_user,1,1,1,1
+access_sale_campaign,access_sale_campaign,model_sale_campaign,base.group_user,1,1,1,1
+access_lead_tag,access_lead_tag,model_lead_tag,base.group_user,1,1,1,1
+access_ir_attachment,access_ir_attachment,model_ir_attachment,base.group_user,1,1,1,1
+access_project_scope,access_project_scope,model_project_scope,base.group_user,1,1,1,1
+access_lead_communication,access_lead_communication,model_lead_communication,base.group_user,1,1,1,1
+access_customer_quotation,access_customer_quotation,model_customer_quotation,base.group_user,1,1,1,1
+access_customer_quotation_line,access_customer_quotation_line,model_customer_quotation_line,base.group_user,1,1,1,1
+access_project_management,access_project_management,model_project_management,,1,1,1,1
+access_project_task,access_project_task,model_project_task,,1,1,1,1
+access_simple_invoice,access_simple_invoice,model_simple_invoice,,1,1,1,1
+access_simple_invoice_line,access_simple_invoice_line,model_simple_invoice_line,,1,1,1,1

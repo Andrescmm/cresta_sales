@@ -1,0 +1,25 @@
+<odoo>
+    <data noupdate="1">
+        <record id="seq_customer_quotation" model="ir.sequence">
+            <field name="name">Customer Quotation</field>
+            <field name="code">customer.quotation</field>
+            <field name="prefix">QT-</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+
+    <record id="seq_project_management" model="ir.sequence">
+        <field name="name">Project Management</field>
+        <field name="code">project.management</field>
+        <field name="prefix">PRJ</field>
+        <field name="padding">5</field>
+    </record>
+
+    <record id="seq_simple_invoice" model="ir.sequence">
+        <field name="name">Simple Invoice</field>
+        <field name="code">simple.invoice</field>
+        <field name="prefix">INV</field>
+        <field name="padding">5</field>
+    </record>
+
+</odoo>

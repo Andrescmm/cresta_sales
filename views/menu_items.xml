@@ -1,0 +1,16 @@
+<odoo>
+    <menuitem id="lead_management_main_menu" name="Cresta Sales" sequence="1" web_icon="cresta_sales,static/src/img/cresta.png"/>
+
+    <menuitem id="menu_lead" name="Leads"  sequence="2" parent="lead_management_main_menu" action="action_leads"/>
+
+    <menuitem id="menu_quotations" name="Quotations" sequence="3" parent="lead_management_main_menu" action="action_customer_quotation"/>
+
+    <menuitem id="menu_project" name="Projects" sequence="4" parent="lead_management_main_menu" action="action_project_management"/>
+
+    <menuitem id="menu_invoice" name="Invoicing" sequence="4" parent="lead_management_main_menu" action="action_simple_invoice"/>
+
+    <menuitem id="menu_campaing" name="Campaings" sequence="5" parent="lead_management_main_menu" action="action_sale_campaign"/>
+
+    <menuitem id="menu_project_scope" name="Project Scope" sequence="6" parent="lead_management_main_menu" action="action_project_scope"/>
+
+</odoo>

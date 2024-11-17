@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <template id="report_customer_quotation">
+       <t t-call="web.html_container">
+           <t t-foreach="docs" t-as="o">
+               <t t-call="web.external_layout">
+                   <div class="quotation-report">
+                       <h2>Quotation Report</h2>
+                       <table class="table table-condensed">
+                           <thead>
+                               <tr>
+                                   <th>Quotation Reference</th>
+                                   <th>Lead</th>
+                                   <th>Quotation Date</th>
+                                   <th>Total Amount</th>
+                                   <th>Status</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <tr>
+                                   <td><t t-esc="o.name"/></td>
+                                   <td><t t-esc="o.lead_id.name or ''"/></td>
+                                   <td><t t-esc="o.quotation_date"/></td>
+                                   <td><t t-esc="o.total_amount"/></td>
+                                   <td><t t-esc="dict(o._fields['state'].selection).get(o.state)"/></td>
+                               </tr>
+                           </tbody>
+                       </table>
+
+                       <h3>Quotation Lines</h3>
+                       <table class="table table-bordered">
+                           <thead>
+                               <tr>
+                                   <th>Project</th>
+                                   <th>Quantity</th>
+                                   <th>Unit Price</th>
+                                   <th>Subtotal</th>
+                               </tr>
+                           </thead>
+                           <tbody>
+                               <tr t-foreach="o.quotation_lines" t-as="line">
+                                   <td><t t-esc="line.project_id.name or ''"/></td>
+                                   <td><t t-esc="line.quantity"/></td>
+                                   <td><t t-esc="line.unit_price"/></td>
+                                   <td><t t-esc="line.subtotal"/></td>
+                               </tr>
+                           </tbody>
+                       </table>
+
+                       <div class="summary-section">
+                        <h3>Details</h3>
+                        <p><strong>Responsible:</strong> <t t-esc="o.asign_to.name"/></p>
+                        <p><strong>Date Start:</strong> <t t-esc="o.date_start"/></p>
+                        <p><strong>Date End:</strong> <t t-esc="o.date_end"/></p>
+                        <p><strong>Requirements:</strong> <t t-esc="o.requirements"/></p>
+                        <p><strong>Proposal_details:</strong> <t t-esc="o.proposal_details"/></p>
+                       </div>
+                   </div>
+               </t>
+           </t>
+       </t>
+   </template>
+</odoo>

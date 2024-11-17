@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
+import json
 from odoo import http
+from odoo.http import request, Response
 
-# class MyModule(http.Controller):
-#     @http.route('/my_module/my_module/', auth='public')
-#     def index(self, **kw):
-#         return "Hello, world"
 
-#     @http.route('/my_module/my_module/objects/', auth='public')
-#     def list(self, **kw):
-#         return http.request.render('my_module.listing', {
-#             'root': '/my_module/my_module',
-#             'objects': http.request.env['my_module.my_module'].search([]),
-#         })
-
-#     @http.route('/my_module/my_module/objects/<model("my_module.my_module"):obj>/', auth='public')
-#     def object(self, obj, **kw):
-#         return http.request.render('my_module.object', {
-#             'object': obj
-#         })
+class Leads(http.Controller):
+    @http.route('/api/create_lead', type='json', auth='public')
+    def create_lead(self, **kwargs):
+        data = json.loads(request.httprequest.data)
+        lead_data = {
+            'name': data.get('name'),
+            'email': data.get('email'),
+            'phone': data.get('phone'),
+        }
+        lead = request.env['lead.management'].sudo().create(lead_data)
+        if lead:
+            return {'status': 'success'}
+        else:
+            return {'status': 'failed'}

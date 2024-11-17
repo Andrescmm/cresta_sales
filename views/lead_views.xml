@@ -1,0 +1,154 @@
+<odoo>
+    <!-- Form View for Lead Management -->
+    <record id="view_lead_form" model="ir.ui.view">
+        <field name="name">lead.form</field>
+        <field name="model">lead.management</field>
+        <field name="arch" type="xml">
+            <form string="Lead Details">
+                <header>
+                    <div>
+                        <h1>
+                            <field name="name" readonly="1" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <field name="status" widget="statusbar" options="{'clickable': True}" 
+                           string="Status" class="oe_inline" nolabel="1"/>
+                </header>
+                <sheet>
+                    <!-- Action Buttons -->
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_mark_as_done" string="Mark as Progress" 
+                                type="object" class="btn" icon="fa-check"/>
+                        <button name="action_make_quotation" string="Make Quotation" 
+                                type="object" class="btn" icon="fa-star" invisible="status != 'quotation'"/>
+                        <button name="action_mark_as_lost" string="Mark as Lost" 
+                                type="object" class="btn" icon="fa-times"/>
+                    </div>
+                    <group>
+                        <field name="tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    </group>
+                    <notebook>
+                        <!-- Lead Information Tab -->
+                        <page string="Lead Information">
+                            <group string="Basic Information" col="2">
+                                <field name="name"/>
+                                <field name="email"/>
+                                <field name="phone"/>
+                                <field name="assigned_to"/>
+                                <field name="lead_source"/>
+                            </group>
+                        </page>
+                        <!-- Project Tab -->
+                        <page string="Project">
+                            <group string="Campaign and Project Details" col="2">
+                                <field name="campaign"/>
+                                <field name="project_scope"/>
+                                <field name="budget"/>
+                                <field name="description" colspan="2"/>
+                            </group>
+                            <group string="Requirements and Details">
+                                <field name="requirements"/>
+                            </group>
+                        </page>
+                        <!-- Communication Tab -->
+                        <page string="Communication" invisible="status in ('new', 'in_progress')">
+                            <field name="communication_ids" widget="mail_thread"/>
+                        </page>
+                        <!-- Additional Details Tab -->
+                        <page string="Additional Details">
+                            <group string="Metadata">
+                                <field name="create_date" readonly="1"/>
+                                <field name="write_date" readonly="1"/>
+                                <field name="meeting_date"/>
+                            </group>
+                            <group string="Tags">
+                                <field name="tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </group>
+                        </page>
+                        <!-- Attachments Tab -->
+                        <page string="Attachments">
+                            <field name="attachment_ids" widget="many2many_binary"/>
+                        </page>
+                    </notebook>
+                    <br></br>
+                    <group>
+                        <field name="qualification_status" options="{'clickable': False}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Tree View for Lead Management -->
+    <record id="view_lead_tree" model="ir.ui.view">
+        <field name="name">lead.tree</field>
+        <field name="model">lead.management</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="status"/>
+                <field name="assigned_to"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Kanban View for Lead Management -->
+    <record id="view_lead_kanban" model="ir.ui.view">
+        <field name="name">lead.kanban</field>
+        <field name="model">lead.management</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="status" group_expand="1">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="status"/>
+                <field name="assigned_to"/>
+                <field name="tags"/>
+                <progressbar field="qualification_status" 
+                             colors='{"success": "success", "warm": "warning", "lost": "danger", "cold": "info"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div>
+                                <strong><field name="name"/></strong>
+                            </div>
+                            <div>Status: <field name="status"/></div>
+                            <div>Potential: <field name="qualification_status"/></div>
+                            <div>Assigned To: <field name="assigned_to"/></div>
+                            <div>
+                                <field name="tags" widget="many2many_tags"/>
+                            </div>
+                            <div class="oe_kanban_footer">
+                                <div class="o_kanban_record_bottom">
+                                    <field name="assigned_to" widget="many2one_avatar_user"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Calendar View for Lead Management -->
+    <record id="view_lead_calendar" model="ir.ui.view">
+        <field name="name">lead.calendar</field>
+        <field name="model">lead.management</field>
+        <field name="arch" type="xml">
+            <calendar string="Leads Calendar" date_start="meeting_date" date_stop="meeting_date" color="status">
+                <field name="name"/>
+                <field name="meeting_date"/>
+                <field name="status"/>
+            </calendar>
+        </field>
+    </record>
+
+    <!-- Action to Open Leads -->
+    <record id="action_leads" model="ir.actions.act_window">
+        <field name="name">Leads</field>
+        <field name="res_model">lead.management</field>
+        <field name="view_mode">kanban,calendar,tree,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,46 @@
+<odoo>
+    <record id="view_simple_invoice_form" model="ir.ui.view">
+        <field name="name">simple.invoice.form</field>
+        <field name="model">simple.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Invoice">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="customer_name"/>
+                        <field name="invoice_date"/>
+                        <field name="due_date"/>
+                        <field name="total_amount" readonly="1"/>
+                        <field name="state"/>
+                    </group>
+                    <notebook>
+                        <page string="Invoice Lines">
+                            <field name="line_ids">
+                                <tree>
+                                    <field name="description"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
+                                    <field name="subtotal"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <field name="description"/>
+                                        <field name="quantity"/>
+                                        <field name="unit_price"/>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_simple_invoice" model="ir.actions.act_window">
+        <field name="name">Invoices</field>
+        <field name="res_model">simple.invoice</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

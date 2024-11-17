@@ -1,0 +1,50 @@
+<odoo>
+    <record id="view_project_management_form" model="ir.ui.view">
+        <field name="name">project.management.form</field>
+        <field name="model">project.management</field>
+        <field name="arch" type="xml">
+            <form string="Project">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <!-- <field name="invoice_id"/> -->
+                        <field name="project_manager"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="total_amount" readonly="1"/>
+                        <field name="state"/>
+                    </group>
+                    <notebook>
+                        <page string="Tasks">
+                            <field name="task_ids">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="assigned_to"/>
+                                    <field name="deadline"/>
+                                    <field name="state"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <field name="name"/>
+                                        <field name="assigned_to"/>
+                                        <field name="deadline"/>
+                                        <field name="state"/>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id='action_project_management' model='ir.actions.act_window'>
+        <field name='name'>Projects</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name='res_model'>project.management</field>
+        <field name='view_mode'>tree,form</field>
+    </record>
+
+
+</odoo>
