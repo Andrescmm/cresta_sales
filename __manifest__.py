@@ -11,19 +11,13 @@
 
     'author': "Andres Cusirramos",
     'website': "http://www.yourcompany.com",
-    'category': 'Sales',
-    'version': '1.0.1',
+    'category': 'Uncategorized',
+    'version': '0.1',
     'depends': ['base', 'web'],
-    'images': ['static/src/img/cresta.png'],
 
     'data': [
         'security/ir.model.access.csv',
-        'security/lead_management_security.xml',
         'data/sequence_data.xml',
-        'report/quotation_report.xml',
-        'report/contract_report.xml',
-        'report/ir_actions_report.xml',
-        'report/invoice_report.xml',
         'views/lead_views.xml',
         'views/campaign_views.xml',
         'views/project_views.xml',
@@ -33,11 +27,13 @@
         'views/quotation_views.xml',
         'views/invoice_views.xml',
         'views/menu_items.xml',
+        'report/quotation_report.xml',
+        'report/contract_report.xml',
+        'report/ir_actions_report.xml',
+        'report/invoice_report.xml',
     ],
-
-    'demo': [
-        'demo/demo.xml',
-    ],
+    "license": "AGPL-3",
     "installable": True,
+    "auto_install": False,
     "application": True,
 }
