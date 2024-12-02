@@ -13,11 +13,7 @@
     'website': "http://www.yourcompany.com",
     'category': 'Uncategorized',
     'version': '0.1',
-<<<<<<< HEAD
     'depends': ['base', 'web', 'contacts'],
-=======
-    'depends': ['base', 'web'],
->>>>>>> 9e1f96aa580e26e0f5e148ca1fbc8c5de2e93a8b
 
     'data': [
         'security/ir.model.access.csv',
@@ -36,10 +32,7 @@
         'report/ir_actions_report.xml',
         'report/invoice_report.xml',
     ],
-<<<<<<< HEAD
-=======
     "license": "AGPL-3",
->>>>>>> 9e1f96aa580e26e0f5e148ca1fbc8c5de2e93a8b
     "installable": True,
     "auto_install": False,
     "application": True,
