@@ -18,7 +18,7 @@ class Lead(models.Model):
 
     # Related fields
     project_scope = fields.Many2one('project.scope', string='Project Scope')
-    assigned_to = fields.Many2one('res.users', string='Assigned To')
+    assigned_to = fields.Many2one('res.partner', string='Assigned To')
     campaign = fields.Many2one('sale.campaign', string='Campaign')
     tags = fields.Many2many('lead.tag', string='Tags')
     attachment_ids = fields.Many2many('ir.attachment', string='Attachments')

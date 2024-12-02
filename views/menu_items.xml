@@ -9,8 +9,10 @@
 
     <menuitem id="menu_project" name="Projects" sequence="4" parent="lead_management_main_menu" action="action_project_management"/>
 
-    <menuitem id="menu_campaing" name="Campaings" sequence="5" parent="lead_management_main_menu" action="action_sale_campaign"/>
+    <menuitem id="menu_task" name="Tasks" sequence="5" parent="lead_management_main_menu" action="action_tasks"/>
 
-    <menuitem id="menu_project_scope" name="Project Scope" sequence="6" parent="lead_management_main_menu" action="action_project_scope"/>
+    <menuitem id="menu_campaing" name="Campaings" sequence="6" parent="lead_management_main_menu" action="action_sale_campaign"/>
+
+    <menuitem id="menu_project_scope" name="Project Scope" sequence="7" parent="lead_management_main_menu" action="action_project_scope"/>
 
 </odoo>

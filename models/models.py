@@ -49,7 +49,7 @@ class Campaign(models.Model):
 
     name = fields.Char(string='Campaign Name', required=True)
     description = fields.Text(string='Description')
-    manager = fields.Many2one('res.users', string='Campaign Manager', required=True)
+    manager = fields.Many2one('res.partner', string='Campaign Manager', required=True)
     lead_ids = fields.One2many('lead.management', 'campaign', string='Associated Leads', readonly=True)
 
 

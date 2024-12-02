@@ -8,7 +8,7 @@ class Project(models.Model):
     name = fields.Char(string="Project Name", required=True, default="New")
     quotation_id = fields.Many2one('customer.quotation', string="Quotation")
     invoice_id = fields.Many2one('simple.invoice', string="Invoice")
-    project_manager = fields.Many2one('res.users', string="Project Manager", default=lambda self: self.env.user)
+    project_manager = fields.Many2one('res.partner', string="Project Manager", default=lambda self: self.env.user)
     client = fields.Char(string="Client")
     start_date = fields.Date(string="Start Date")
     end_date = fields.Date(string="End Date")
@@ -19,6 +19,8 @@ class Project(models.Model):
         ('completed', 'Completed'),
     ], string="Status", default='draft', group_expand='_group_expand_states', track_visibility='always', required=True)
     task_ids = fields.One2many('project.task', 'project_id', string="Tasks")
+    product_ids = fields.Many2many('product.product', string="Products")
+    requirements = fields.Html(string='Requeriments')
     
     # Group expand for status
     def _group_expand_states(self, states, domain, order):
@@ -70,14 +72,20 @@ class Task(models.Model):
 
     name = fields.Char(string="Task Name", required=True)
     project_id = fields.Many2one('project.management', string="Project", required=True, ondelete='cascade')
-    assigned_to = fields.Many2one('res.users', string="Assigned To")
+    assigned_to = fields.Many2one('res.partner', string="Assigned To")
     deadline = fields.Date(string="Deadline")
-    description = fields.Text(string="Description")
+    description = fields.Html(string="Description")
     state = fields.Selection([
         ('todo', 'To Do'),
         ('in_progress', 'In Progress'),
         ('done', 'Done'),
-    ], string="Status", default='todo')
+    ],group_expand='_group_expand_states', string="Status", default='todo')
+    product_ids = fields.Many2many('product.product', string="Products")
+    
+    
+    # Group expand for status
+    def _group_expand_states(self, states, domain, order):
+        return [key for key, _ in self._fields['state'].selection]
 
     def action_start_task(self):
         self.write({'state': 'in_progress'})

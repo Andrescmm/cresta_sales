@@ -20,7 +20,13 @@
         <field name="arch" type="xml">
             <form>
                 <header>
-                    <field name="state" widget="statusbar"/>
+                    <div>
+                        <h1>
+                            <field name="name" readonly="1" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <field name="state" widget="statusbar" options="{'clickable': True}" 
+                           string="Status" class="oe_inline" nolabel="1"/>
                 </header>
                 <sheet>
                     <!-- Action Buttons -->
@@ -31,7 +37,7 @@
                                 type="object" class="btn" icon="fa-check" invisible="state in ('draft', 'accepted', 'in_project')"/>
                         <button name="action_send_contract" string="Send Contract" 
                                 type="object" class="btn" icon="fa-id-card" invisible="state in ('draft', 'sent', 'rejected','signed', 'in_project')"/>
-                        <button name="action_create_project" string="Creted Project" 
+                        <button name="action_create_project" string="Create Project" 
                                 type="object" class="btn" icon="fa-diamond" invisible="state != 'signed'"/>               
                         <button name="action_mark_rejected" string="Mark Rejected" 
                                 type="object" class="btn" icon="fa-times" invisible="state in ('draft', 'in_project')"/>

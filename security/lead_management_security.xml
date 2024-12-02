@@ -1,8 +1,0 @@
-<odoo>
-    <record id="customer_quotation_report_rule" model="ir.rule">
-        <field name="name">Customer Quotation Report Rule</field>
-        <field name="model_id" ref="model_customer_quotation"/>
-        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
-        <field name="domain_force">[]</field>
-    </record>
-</odoo>

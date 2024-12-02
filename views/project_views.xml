@@ -5,7 +5,13 @@
         <field name="arch" type="xml">
             <form string="Project">
                 <header>
-                    <field name="state" widget="statusbar"/>
+                    <div>
+                        <h1>
+                            <field name="name" readonly="1" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <field name="state" widget="statusbar" options="{'clickable': True}" 
+                        string="Status" class="oe_inline" nolabel="1"/>
                 </header>
                 <sheet>
                     <!-- Action Buttons -->
@@ -16,7 +22,7 @@
                     type="object" class="btn" icon="fa-check" invisible="state == 'draft'"/>        
                     </div>
                     <group >
-                        <field name="name" readonly="state == 'draft'"/>
+                        <!-- <field name="name" readonly="state == 'draft'"/> -->
                         <field name="quotation_id" readonly="state == 'draft'"/>
                         <field name="client" readonly="state == 'draft'"/>
                         <field name="invoice_id" readonly="state == 'draft'"/>
@@ -43,6 +49,18 @@
                                     </sheet>
                                 </form>
                             </field>
+                        </page>
+                        <page string="Resources">
+                           <field name="product_ids" readonly="state == 'draft'">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="standard_price"/>
+                                    <field name="list_price"/>
+                                </tree>
+                            </field> 
+                        </page>
+                        <page string="Requirements">
+                            <field name="requirements" readonly="state == 'draft'"/>
                         </page>
                     </notebook>
                 </sheet>

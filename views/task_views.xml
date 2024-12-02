@@ -1,17 +1,61 @@
 <odoo>
+    <record id="view_task_search" model="ir.ui.view">
+        <field name="name">project.task.search</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="project_id" string="Project"/>
+                <field name="product_ids" string="Products"/>
+
+                <filter string="To Do" name="todo" domain="[('state', '=', 'todo')]"/>
+                <filter string="In Progress" name="inprogress" domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Done" name="done" domain="[('state', '=', 'done')]"/>
+                <filter string="My Tasks" name="my_tasks" domain="[('assigned_to.id', '=', uid)]"/>
+
+                <group expand="1" string="Group By">
+                    <filter string="Project" name="project" context="{'group_by': 'project_id'}"/>
+                    <filter string="Status" name="status" context="{'group_by': 'state'}"/>
+                    <filter string="Assigned to" name="assigned" context="{'group_by': 'assigned_to'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
     <record id="view_project_task_form" model="ir.ui.view">
         <field name="name">project.task.form</field>
         <field name="model">project.task</field>
         <field name="arch" type="xml">
             <form string="Task">
+                <header>
+                    <div>
+                        <h1>
+                            <field name="name" readonly="1" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <field name="state" widget="statusbar" options="{'clickable': True}" 
+                        string="Status" class="oe_inline" nolabel="1"/>
+                </header>
                 <group string="Task">
                     <field name="name"/>
                     <field name="project_id"/>
                     <field name="assigned_to"/>
                     <field name="deadline"/>
-                    <field name="description"/>
-                    <field name="state"/>
                 </group>
+                <notebook>
+                    <page string="Description">
+                        <field name="description"/>
+                    </page>
+                    <page string="Resources">
+                        <field name="product_ids">
+                            <tree>
+                                <field name="name"/>
+                                <field name="standard_price"/>
+                                <field name="list_price"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
             </form>
         </field>
     </record>
@@ -20,12 +64,12 @@
         <field name="name">project.task.kanban</field>
         <field name="model">project.task</field>
         <field name="arch" type="xml">
-            <kanban string="Task Kanban View">
+            <kanban default_group_by="state" group_expand="1" string="Task Kanban View">
                 <field name="state"/>
                 <templates>
-                    <t t="kanban">
+                    <t t-name="kanban-box">
                         <div class="o_kanban_record">
-                            <div class="o_kanban_card">
+                            <div class="oe_kanban_global_click">
                                 <strong>
                                     <field name="name"/>
                                 </strong>
@@ -38,8 +82,10 @@
                                 <div>
                                     <span><strong>Project:</strong> <field name="project_id"/></span>
                                 </div>
-                                <div>
-                                    <field name="description"/>
+                                <div class="oe_kanban_footer">
+                                    <div class="o_kanban_record_bottom">
+                                        <field name="assigned_to" widget="many2one_avatar_user"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -48,12 +94,40 @@
             </kanban>
         </field>
     </record>
+
+    <record id="view_tasks_tree" model="ir.ui.view">
+        <field name="name">project.task.tree</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="assigned_to"/>
+                <field name="project_id"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_task_calendar" model="ir.ui.view">
+        <field name="name">project.task.calendar</field>
+        <field name="model">project.task</field>
+        <field name="arch" type="xml">
+            <calendar string="Leads Calendar" date_start="deadline" date_stop="deadline" color="state">
+                <field name="name"/>
+                <field name="deadline"/>
+                <field name="state"/>
+            </calendar>
+        </field>
+    </record>
+
     
+
     <record id='action_tasks' model='ir.actions.act_window'>
-        <field name='name'>tasks</field>
+        <field name='name'>Tasks</field>
         <field name='type'>ir.actions.act_window</field>
         <field name='res_model'>project.task</field>
-        <field name='view_mode'>form</field>
+        <field name='view_mode'>kanban,form,tree,calendar</field>
+        <field name="search_view_id" ref="view_task_search"/>
     </record>
 
 </odoo>

@@ -11,7 +11,7 @@ class Quotation(models.Model):
     proposal_details = fields.Text(string="Proposal Details")
     quotation_date = fields.Date(string="Quotation Date", default=fields.Date.context_today)
     total_amount = fields.Float(string="Total Amount", compute="_compute_total_amount", store=True)
-    asign_to = fields.Many2one('res.users', string="Asign To")
+    asign_to = fields.Many2one('res.partner', string="Asign To")
     state = fields.Selection([
         ('draft', 'Draft'),
         ('sent', 'Sent'),
@@ -64,6 +64,7 @@ class Quotation(models.Model):
             'start_date': self.date_start,
             'end_date': self.date_end,
             'total_amount': self.total_amount,
+            'requirements': self.requirements,
             'state': 'draft',
         })
         
