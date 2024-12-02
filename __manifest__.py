@@ -13,7 +13,7 @@
     'website': "http://www.yourcompany.com",
     'category': 'Uncategorized',
     'version': '0.1',
-    'depends': ['base', 'web', 'contacts'],
+    'depends': ['base', 'web', 'contacts','stock'],
 
     'data': [
         'security/ir.model.access.csv',
